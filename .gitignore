@@ -1,1 +1,7 @@
+# Julia
 /Manifest.toml
+/test/Manifest.toml
+
+# VS Code
+.vs/
+.vscode/
