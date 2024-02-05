@@ -1,0 +1,7 @@
+name = "DESilico"
+uuid = "79b54fe2-a139-487f-adcb-0564ee322c48"
+authors = ["Matouš Soldát"]
+version = "0.1.0"
+
+[compat]
+julia = "1.6.7"
