@@ -30,3 +30,12 @@ Structures derived from this type have to implement the following method:
 This method should return vector of newly created sequences as `Vector{Vector{Char}}`.
 """
 abstract type Mutagenesis end
+
+"""
+Specifies the oracle used to evaluate fitness of a sequence.
+
+Structures derived from this type have to implement the following method:
+`(::CustomScreening)(sequence::Vector{Char})`
+This method should return the sequence's fitness value as any subtype of `Real`.
+"""
+abstract type Screening end

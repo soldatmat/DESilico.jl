@@ -10,7 +10,10 @@
         (['A', 'D', 'A', 'A'], 3.0),
         (['A', 'E', 'A', 'A'], 0.0),
     ])
-    dict_screen(sequence) = fitness_dict[sequence]
+    struct DictScreen <: DESilico.Screening end
+    function (::DictScreen)(sequence::Vector{Char})
+        fitness_dict[sequence]
+    end
 
     # Define a custom dummy SelectionStrategy
     struct DummySelectionStrategy <: DESilico.SelectionStrategy end
@@ -29,7 +32,7 @@
     # Run directed evolution of the wild type sequence
     top_variant, top_fitness = de(
         [wt_sequence],
-        dict_screen,
+        DictScreen(),
         DummySelectionStrategy(),
         DummyMutagenesis(),
         length(fitness_dict) - 1,

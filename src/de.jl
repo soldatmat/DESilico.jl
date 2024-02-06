@@ -11,7 +11,7 @@
 """
 function de(
     parents::Vector{Vector{Char}}, # TODO define `Sequence` type with constrained alphabet
-    screen::Function,
+    screening::Screening,
     selection_strategy::SelectionStrategy,
     mutagenesis::Mutagenesis,
     n_iterations::Integer=1,
@@ -40,7 +40,7 @@ function de(
 
     for iter in 1:n_iterations
         variant_library = mutagenesis(parents)
-        variant_fitness_pairs = screen_variants(variant_library, screen)
+        variant_fitness_pairs = screen_variants(variant_library, screening)
         update_top_variant!(variant_fitness_pairs)
         parents = selection_strategy(variant_fitness_pairs)
     end
@@ -56,10 +56,10 @@ end
 #    end
 #end
 
-function screen_variants(variant_library::Vector{Vector{Char}}, screen::Function)
+function screen_variants(variant_library::Vector{Vector{Char}}, screening::Screening)
     variant_fitness_pairs = Vector{Tuple{Vector{Char}, Real}}(undef, length(variant_library))
     for (idx, variant) in enumerate(variant_library)
-        variant_fitness_pairs[idx] = (variant, screen(variant))
+        variant_fitness_pairs[idx] = (variant, screening(variant))
     end
     return variant_fitness_pairs
 end
