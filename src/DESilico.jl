@@ -1,5 +1,8 @@
 module DESilico
 
-# Write your package code here.
+export de
+
+include("types.jl")
+include("de.jl")
 
 end

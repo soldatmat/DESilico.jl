@@ -2,5 +2,5 @@ using DESilico
 using Test
 
 @testset "DESilico.jl" begin
-    # Write your tests here.
+    include("unit/runtests.jl")
 end
