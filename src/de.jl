@@ -12,18 +12,12 @@
 function de(
     parents::Vector{Vector{Char}}, # TODO define `Sequence` type with constrained alphabet
     screen::Function,
-    selection_strategy::Type{<:SelectionStrategy},
-    mutagenesis::Type{<:Mutagenesis},
-    alphabet::Set{Char},
+    selection_strategy::SelectionStrategy,
+    mutagenesis::Mutagenesis,
     n_iterations::Integer=1,
-    k_selected::Integer=1,
-    m_mutated::Integer=1,
 )
     @assert n_iterations > 0
-    assure_parents_from_alphabet(parents, alphabet)
-
-    mutate = mutagenesis(m_mutated, alphabet)
-    select = selection_strategy(k_selected)
+    #assure_parents_from_alphabet(parents, alphabet)
 
     top_variant = nothing
     top_fitness = -1. # TODO define as min of screen return type
@@ -45,25 +39,24 @@ function de(
     end
 
     for iter in 1:n_iterations
-        variant_library = mutate(parents)
+        variant_library = mutagenesis(parents)
         variant_fitness_pairs = screen_variants(variant_library, screen)
         update_top_variant!(variant_fitness_pairs)
-        parents = select(variant_fitness_pairs)
+        parents = selection_strategy(variant_fitness_pairs)
     end
 
     return top_variant, top_fitness
 end
 
-function assure_parents_from_alphabet(parents, alphabet)
-    for parent in parents
-        if !sequence_from_alphabet(parent, alphabet)
-            error("`parents` cannot contain characters which are not from the `alphabet`.")
-        end
-    end
-end
+#function assure_parents_from_alphabet(parents, alphabet)
+#    for parent in parents
+#        if !sequence_from_alphabet(parent, alphabet)
+#            error("`parents` cannot contain characters which are not from the `alphabet`.")
+#        end
+#    end
+#end
 
 function screen_variants(variant_library::Vector{Vector{Char}}, screen::Function)
-    # TODO make Tuple{Vector{Char}, T} where {T is return type of `screen`}
     variant_fitness_pairs = Vector{Tuple{Vector{Char}, Real}}(undef, length(variant_library))
     for (idx, variant) in enumerate(variant_library)
         variant_fitness_pairs[idx] = (variant, screen(variant))

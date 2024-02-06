@@ -13,18 +13,13 @@
     dict_screen(sequence) = fitness_dict[sequence]
 
     # Define a custom dummy SelectionStrategy
-    struct DummySelectionStrategy <: DESilico.SelectionStrategy
-        k::Int
-    end
+    struct DummySelectionStrategy <: DESilico.SelectionStrategy end
     function (::DummySelectionStrategy)(sequence_fitness_pairs::Vector{Tuple{Vector{Char},T}}) where {T<:Real}
         [sequence_fitness_pairs[1][1]]
     end
 
     # Define a custom dummy Mutagenesis
-    struct DummyMutagenesis <: DESilico.Mutagenesis
-        m::Int # Ignored
-        alphabet::Set{Char} # ignored
-    end
+    struct DummyMutagenesis <: DESilico.Mutagenesis end
     function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
         new_parent = parents[1]
         new_parent[2] = new_parent[2] + 1
@@ -35,9 +30,8 @@
     top_variant, top_fitness = de(
         [wt_sequence],
         dict_screen,
-        DummySelectionStrategy,
-        DummyMutagenesis,
-        alphabet,
+        DummySelectionStrategy(),
+        DummyMutagenesis(),
         length(fitness_dict) - 1,
     )
 

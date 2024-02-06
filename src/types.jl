@@ -2,7 +2,7 @@
 Specifies the algorithm used to select new parent sequences from a library of sequence-fitness pairs.
 Inherit this type to define a custom selection stratgy.
 
-Structures derived from this type need to have a constructor with signature:
+Structures derived from this type should have a constructor with signature:
 `CustomSelectionStrategy(k::Int)`
 `k` specifies the number of sequences that should be selected.
 `k` can be ignored but it might not be possible to use the stucture in combination with certain
