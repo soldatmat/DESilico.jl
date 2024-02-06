@@ -1,0 +1,10 @@
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.10.0"
+manifest_format = "2.0"
+project_hash = "8892d22012412e9e7ccb51c9a31f6be026cc6306"
+
+[[deps.DESilico]]
+path = ".."
+uuid = "79b54fe2-a139-487f-adcb-0564ee322c48"
+version = "0.1.0"
