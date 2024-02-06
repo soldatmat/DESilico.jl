@@ -1,5 +1,6 @@
 @testset "de.jl" begin
     wt_sequence = ['A', 'A', 'A', 'A']
+    alphabet = Set(['A', 'B', 'C', 'D', 'E'])
 
     # Define a screening oracle
     fitness_dict = Dict([
@@ -12,27 +13,31 @@
     dict_screen(sequence) = fitness_dict[sequence]
 
     # Define a custom dummy SelectionStrategy
-    struct DummySelectionStrategy <: DESilico.SelectionStrategy end
-    function (::DummySelectionStrategy)(variant_fitness_pairs::Vector{Tuple{Vector{Char},T}}) where {T<:Real}
-        [variant_fitness_pairs[1][1]]
+    struct DummySelectionStrategy <: DESilico.SelectionStrategy
+        k::Int
     end
-    selection_strategy = DummySelectionStrategy()
+    function (::DummySelectionStrategy)(sequence_fitness_pairs::Vector{Tuple{Vector{Char},T}}) where {T<:Real}
+        [sequence_fitness_pairs[1][1]]
+    end
 
     # Define a custom dummy Mutagenesis
-    struct DummyMutagenesis <: DESilico.Mutagenesis end
-    function(::DummyMutagenesis)(parents::Vector{Vector{Char}})
+    struct DummyMutagenesis <: DESilico.Mutagenesis
+        m::Int # Ignored
+        alphabet::Set{Char} # ignored
+    end
+    function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
         new_parent = parents[1]
         new_parent[2] = new_parent[2] + 1
         return [new_parent]
     end
-    mutagenesis = DummyMutagenesis()
 
     # Run directed evolution of the wild type sequence
     top_variant, top_fitness = de(
         [wt_sequence],
         dict_screen,
-        selection_strategy,
-        mutagenesis,
+        DummySelectionStrategy,
+        DummyMutagenesis,
+        alphabet,
         length(fitness_dict) - 1,
     )
 
