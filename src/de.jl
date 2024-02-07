@@ -10,26 +10,23 @@
 - `n_iterations::Integer=1`: Specifies the number of iteration of DE. Has to be greater than 0.
 """
 function de(
-    parents::Vector{Vector{Char}}, # TODO define `Sequence` type with constrained alphabet
+    parents::AbstractVector{<:AbstractVector{Char}},
     screening::Screening,
     selection_strategy::SelectionStrategy,
-    mutagenesis::Mutagenesis,
-    n_iterations::Integer=1,
+    mutagenesis::Mutagenesis;
+    n_iterations::Int=1,
 )
     @assert n_iterations > 0
     #assure_parents_from_alphabet(parents, alphabet)
 
     top_variant = nothing
-    top_fitness = -1. # TODO define as min of screen return type
+    top_fitness = nothing
 
-    function update_top_variant!(variant_fitness_pairs)
-        #function Base.isless(::Nothing, ::Real)
-        #    true
-        #end
-        #function Base.isless(::Real, ::Nothing)
-        #    false
-        #end
-
+    function update_top_variant!(variant_fitness_pairs::AbstractVector{<:Tuple{<:AbstractVector{Char},<:Real}})
+        if isnothing(top_fitness)
+            top_fitness = variant_fitness_pairs[1][2]
+            top_variant = variant_fitness_pairs[1][1]
+        end
         for (variant, fitness) in variant_fitness_pairs
             if fitness >= top_fitness
                 top_fitness = fitness
@@ -48,6 +45,14 @@ function de(
     return top_variant, top_fitness
 end
 
+function screen_variants(variant_library::AbstractVector{<:AbstractVector{Char}}, screening::Screening)
+    variant_fitness_pairs = Vector{Tuple{Vector{Char},Real}}(undef, length(variant_library))
+    for (idx, variant) in enumerate(variant_library)
+        variant_fitness_pairs[idx] = (variant, screening(variant))
+    end
+    return variant_fitness_pairs
+end
+
 #function assure_parents_from_alphabet(parents, alphabet)
 #    for parent in parents
 #        if !sequence_from_alphabet(parent, alphabet)
@@ -55,11 +60,3 @@ end
 #        end
 #    end
 #end
-
-function screen_variants(variant_library::Vector{Vector{Char}}, screening::Screening)
-    variant_fitness_pairs = Vector{Tuple{Vector{Char}, Real}}(undef, length(variant_library))
-    for (idx, variant) in enumerate(variant_library)
-        variant_fitness_pairs[idx] = (variant, screening(variant))
-    end
-    return variant_fitness_pairs
-end

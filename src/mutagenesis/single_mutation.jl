@@ -1,8 +1,7 @@
 struct SingleMutation <: Mutagenesis
-    m::Int # Ignored
     alphabet::Set{Char}
 end
-function (m::SingleMutation)(parents::Vector{Vector{Char}})
+function (m::SingleMutation)(parents::AbstractVector{<:AbstractVector{Char}})
     len_sequence = length(parents[1])
     variant_library = Vector{Vector{Char}}(undef, length(parents) * len_sequence * length(m.alphabet))
     for (p, parent) in enumerate(parents)

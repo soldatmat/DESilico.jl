@@ -35,7 +35,7 @@
         DictScreen(),
         DummySelectionStrategy(),
         DummyMutagenesis(),
-        length(fitness_dict) - 1,
+        n_iterations=length(fitness_dict) - 1,
     )
 
     @test top_variant == ['A', 'D', 'A', 'A']

@@ -1,4 +1,4 @@
-function sequence_from_alphabet(sequence::Vector{Char}, alphabet::Set{Char})
+function sequence_from_alphabet(sequence::AbstractVector{Char}, alphabet::Set{Char})
     for symbol in sequence
         if symbol ∉ alphabet
             return false

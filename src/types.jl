@@ -2,15 +2,12 @@
 Specifies the algorithm used to select new parent sequences from a library of sequence-fitness pairs.
 Inherit this type to define a custom selection stratgy.
 
-Structures derived from this type should have a constructor with signature:
-`CustomSelectionStrategy(k::Int)`
-`k` specifies the number of sequences that should be selected.
-`k` can be ignored but it might not be possible to use the stucture in combination with certain
-Mutagenesis implementations which require a specific amount of selected sequences.
-
 Structures derived from this type have to implement the following method:
-`(::CustomSelectionStrategy)(sequence_fitness_pairs::Vector{Tuple{Vector{Char},Real}})`
-This method should return vector of selected sequences as `Vector{Vector{Char}}`.
+`(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{<:Tuple{<:AbstractVector{Char},Real}})`
+This method should return vector of selected sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+
+Structures derived from this type can have a parameter `k` which specifies the number of sequences that should be selected.
+This can be useful with some Mutagenesis implementations that require a specific amount of selected sequences as input.
 """
 abstract type SelectionStrategy end
 
@@ -18,16 +15,14 @@ abstract type SelectionStrategy end
 Specifies the algorithm used to create new sequences from a library of parent sequences.
 Inherit this type to define a custom mutagenesis.
 
-Structures derived from this type need to have a constructor with signature:
-`CustomMutagenesis(m::Int, alphabet::Set{Char})`
-`m` specifies the number of new sequences that should be created.
-`m` can be ignored but it might not be possible to use the stucture in combination with certain
-SelectionStrategy implementations which require a specific amount of screened sequences.
-`alphabet` is a set of all characters which can be used in the sequences.
-
 Structures derived from this type have to implement the following method:
 `(::CustomMutagenesis)(parents::Vector{Vector{Char}})`
-This method should return vector of newly created sequences as `Vector{Vector{Char}}`.
+This method should return vector of newly created sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+
+Structures derived from this type can have a parameter `m` which specifies the number of sequences that should be created.
+This can be useful with some SelectionStrategy implementations that require a specific amount of selected sequences as input.
+
+Structures derived from this type can have a parameter `alphabet` which specifies the allowed characters in the sequences.
 """
 abstract type Mutagenesis end
 
@@ -35,7 +30,7 @@ abstract type Mutagenesis end
 Specifies the oracle used to evaluate fitness of a sequence.
 
 Structures derived from this type have to implement the following method:
-`(::CustomScreening)(sequence::Vector{Char})`
-This method should return the sequence's fitness value as any subtype of `Real`.
+`(::CustomScreening)(sequence::AbstractVector{Char})`
+This method should return the sequence's fitness value as a subtype of `Real`.
 """
 abstract type Screening end
