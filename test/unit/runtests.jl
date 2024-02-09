@@ -1,5 +1,6 @@
 @testset "Unit Tests" begin
-    include("de.jl")
-
     include("screening/dict_screening.jl")
+    include("mutagenesis/single_mutation.jl")
+
+    include("de.jl")
 end

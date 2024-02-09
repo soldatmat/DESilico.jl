@@ -13,5 +13,5 @@ function (m::SingleMutation)(parents::AbstractVector{<:AbstractVector{Char}})
             end
         end
     end
-    return variant_library
+    return collect(Set(variant_library))
 end
