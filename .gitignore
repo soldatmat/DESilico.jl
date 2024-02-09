@@ -5,3 +5,6 @@
 # VS Code
 .vs/
 .vscode/
+
+# Data
+/scripts/*.xlsx
