@@ -13,4 +13,5 @@ function (m::SingleMutation)(parents::AbstractVector{<:AbstractVector{Char}})
             end
         end
     end
+    return variant_library
 end

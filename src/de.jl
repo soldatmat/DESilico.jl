@@ -35,7 +35,7 @@ function de(
         end
     end
 
-    for iter in 1:n_iterations
+    for _ in 1:n_iterations
         variant_library = mutagenesis(parents)
         variant_fitness_pairs = screen_variants(variant_library, screening)
         update_top_variant!(variant_fitness_pairs)
