@@ -5,6 +5,7 @@
     include("screening/dict_screening.jl")
     include("selection_strategy/top_k.jl")
     include("mutagenesis/single_mutation.jl")
+    include("mutagenesis/recombination.jl")
 
     include("utils.jl")
     include("de.jl")
