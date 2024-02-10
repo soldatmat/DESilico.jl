@@ -4,7 +4,7 @@ using DESilico
 # `Mutagenesis` and `Screening` modules.
 
 # We have a wild type sequence that we want to improve.
-wt_sequence = ['A', 'A', 'A', 'A']
+wild_type = Variant(['A', 'A', 'A', 'A'], 1.0)
 
 
 # We define a custom screening oracle.
@@ -43,11 +43,15 @@ function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
     return [new_parent]
 end
 
+# We need to initiate `SequenceSpace`
+ss = SequenceSpace([wild_type])
+
 # Finally, we run `n_iterations` of directed evolution with the custom modules.
-top_variant = de(
-    [wt_sequence],
-    DummyScreening(),
-    DummySelectionStrategy(),
-    DummyMutagenesis(),
+de!(
+    ss,
+    screening=DummyScreening(),
+    selection_strategy=DummySelectionStrategy(),
+    mutagenesis=DummyMutagenesis(),
     n_iterations=length(fitness_dict) - 1,
 )
+ss.top_variant

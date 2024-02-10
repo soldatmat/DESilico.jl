@@ -1,6 +1,7 @@
 module DESilico
 
-export de, Variant
+export Variant
+export de!, SequenceSpace
 
 include("types/include.jl")
 include("de.jl")

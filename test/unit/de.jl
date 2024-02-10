@@ -1,5 +1,5 @@
 @testset "de.jl" begin
-    wt_sequence = ['A', 'A', 'A', 'A']
+    wild_type = Variant(['A', 'A', 'A', 'A'], 1.0)
 
     # Define a custom screening oracle
     fitness_dict = Dict([
@@ -29,15 +29,23 @@
     end
 
     # Run directed evolution of the wild type sequence
-    top_variant = de(
-        [wt_sequence],
-        DummyScreening(),
-        DummySelectionStrategy(),
-        DummyMutagenesis(),
+    ss = SequenceSpace([wild_type])
+    de!(
+        ss,
+        screening=DummyScreening(),
+        selection_strategy=DummySelectionStrategy(),
+        mutagenesis=DummyMutagenesis(),
         n_iterations=length(fitness_dict) - 1,
     )
 
-    @test typeof(top_variant) == Variant
-    @test top_variant.sequence == ['A', 'D', 'A', 'A']
-    @test top_variant.fitness == 3.0
+    @test ss.variants == Set([
+        Variant(['A', 'A', 'A', 'A'], 1.0),
+        Variant(['A', 'B', 'A', 'A'], 0.7),
+        Variant(['A', 'C', 'A', 'A'], 2.1),
+        Variant(['A', 'D', 'A', 'A'], 3.0),
+        Variant(['A', 'E', 'A', 'A'], 0.0),
+    ])
+    @test ss.population == [['A', 'E', 'A', 'A']]
+    @test ss.top_variant.sequence == ['A', 'D', 'A', 'A']
+    @test ss.top_variant.fitness == 3.0
 end
