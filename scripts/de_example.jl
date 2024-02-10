@@ -29,7 +29,7 @@ selection_strategy = DESilico.TopK(1)
 
 
 # 3) `Mutagenesis` specifies the algorithm used to create new sequences from a library of parent sequences.
-# We will use `DESilico.SingleMutation` which creates all variants which differ in one amino acid from the parent sequence/s.
+# We will use `DESilico.SingleMutation` which creates all mutants which differ in one amino acid from the parent sequence/s.
 #
 # Most `Mutagenesis` structures require an alphabet.
 # An alphabet is simply a `Set{Char}`.
@@ -38,7 +38,7 @@ alphabet = DESilico.alphabet.protein
 mutagenesis = DESilico.SingleMutation(alphabet)
 
 # Finally, we run `n_iterations` of directed evolution with the chosen modules.
-top_variant, top_fitness = de(
+top_variant = de(
     [wild_type],
     screening,
     selection_strategy,

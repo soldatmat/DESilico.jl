@@ -11,11 +11,11 @@
     end
 
     screened_variants = [
-        (['A', 'C'], 0.0),
-        (['A', 'A'], -0.3),
-        (['A', 'D'], 10),
-        (['A', 'B'], -0.7),
-        (['X', 'X', 'X'], 0.5),
+        Variant(['A', 'C'], 0.0),
+        Variant(['A', 'A'], -0.3),
+        Variant(['A', 'D'], 10),
+        Variant(['A', 'B'], -0.7),
+        Variant(['X', 'X', 'X'], 0.5),
     ]
 
     selection = DESilico.TopK(1)(screened_variants)

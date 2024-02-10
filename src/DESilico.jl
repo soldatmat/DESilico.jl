@@ -1,8 +1,8 @@
 module DESilico
 
-export de
+export de, Variant
 
-include("types.jl")
+include("types/include.jl")
 include("de.jl")
 include("selection_strategy/include.jl")
 include("mutagenesis/include.jl")

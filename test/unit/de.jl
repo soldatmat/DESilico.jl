@@ -16,8 +16,8 @@
 
     # Define a custom SelectionStrategy
     struct DummySelectionStrategy <: DESilico.SelectionStrategy end
-    function (::DummySelectionStrategy)(sequence_fitness_pairs::Vector{Tuple{Vector{Char},T}}) where {T<:Real}
-        [sequence_fitness_pairs[1][1]]
+    function (::DummySelectionStrategy)(variants::Vector{Variant})
+        [variants[1].sequence]
     end
 
     # Define a custom Mutagenesis
@@ -29,7 +29,7 @@
     end
 
     # Run directed evolution of the wild type sequence
-    top_variant, top_fitness = de(
+    top_variant = de(
         [wt_sequence],
         DummyScreening(),
         DummySelectionStrategy(),
@@ -37,6 +37,7 @@
         n_iterations=length(fitness_dict) - 1,
     )
 
-    @test top_variant == ['A', 'D', 'A', 'A']
-    @test top_fitness == 3.0
+    @test typeof(top_variant) == Variant
+    @test top_variant.sequence == ['A', 'D', 'A', 'A']
+    @test top_variant.fitness == 3.0
 end

@@ -25,11 +25,11 @@ end
 
 # We define a custom SelectionStrategy.
 # A custom `SelectionStrategy` structure needs to implement a method with signature
-# `(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{<:Tuple{<:AbstractVector{Char},Real}})`
+# `(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{Variant})`
 # which returns a vector of the selected sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
 struct DummySelectionStrategy <: DESilico.SelectionStrategy end
-function (::DummySelectionStrategy)(sequence_fitness_pairs::Vector{Tuple{Vector{Char},T}}) where {T<:Real}
-    [sequence_fitness_pairs[1][1]]
+function (::DummySelectionStrategy)(variants::Vector{Variant})
+    [variants[1].sequence]
 end
 
 # We define a custom Mutagenesis.
@@ -44,7 +44,7 @@ function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
 end
 
 # Finally, we run `n_iterations` of directed evolution with the custom modules.
-top_variant, top_fitness = de(
+top_variant = de(
     [wt_sequence],
     DummyScreening(),
     DummySelectionStrategy(),

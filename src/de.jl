@@ -20,37 +20,34 @@ function de(
     #assure_parents_from_alphabet(parents, alphabet)
 
     top_variant = nothing
-    top_fitness = nothing
 
-    function update_top_variant!(variant_fitness_pairs::AbstractVector{<:Tuple{<:AbstractVector{Char},<:Real}})
-        if isnothing(top_fitness)
-            top_fitness = variant_fitness_pairs[1][2]
-            top_variant = variant_fitness_pairs[1][1]
+    function update_top_variant!(variants::AbstractVector{Variant})
+        if isnothing(top_variant)
+            top_variant = variants[1]
         end
-        for (variant, fitness) in variant_fitness_pairs
-            if fitness >= top_fitness
-                top_fitness = fitness
+        for variant in variants
+            if variant.fitness > top_variant.fitness
                 top_variant = copy(variant)
             end
         end
     end
 
     for _ in 1:n_iterations
-        variant_library = mutagenesis(parents)
-        variant_fitness_pairs = screen_variants(variant_library, screening)
-        update_top_variant!(variant_fitness_pairs)
-        parents = selection_strategy(variant_fitness_pairs)
+        mutant_library = mutagenesis(parents)
+        variants = screeen_mutants(mutant_library, screening)
+        update_top_variant!(variants)
+        parents = selection_strategy(variants)
     end
 
-    return top_variant, top_fitness
+    return top_variant
 end
 
-function screen_variants(variant_library::AbstractVector{<:AbstractVector{Char}}, screening::Screening)
-    variant_fitness_pairs = Vector{Tuple{Vector{Char},Real}}(undef, length(variant_library))
-    for (idx, variant) in enumerate(variant_library)
-        variant_fitness_pairs[idx] = (variant, screening(variant))
+function screeen_mutants(sequences::AbstractVector{<:AbstractVector{Char}}, screening::Screening)
+    variants = Vector{Variant}(undef, length(sequences))
+    for (idx, sequence) in enumerate(sequences)
+        variants[idx] = Variant(sequence, screening(sequence))
     end
-    return variant_fitness_pairs
+    return variants
 end
 
 #function assure_parents_from_alphabet(parents, alphabet)

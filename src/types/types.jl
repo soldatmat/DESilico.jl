@@ -3,7 +3,7 @@ Specifies the algorithm used to select new parent sequences from a library of se
 Inherit this type to define a custom selection stratgy.
 
 Structures derived from this type have to implement the following method:
-`(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{<:Tuple{<:AbstractVector{Char},Real}})`
+`(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{Variant})`
 This method should return vector of selected sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
 
 Structures derived from this type can have a parameter `k` which specifies the number of sequences that should be selected.
