@@ -19,7 +19,6 @@ struct DictScreening <: Screening
 
         variants_idx = dt.column_label_index[Symbol(sequence_column)]
         variants = Vector{String}(dt.data[variants_idx])
-        #variants = reduce(vcat, permutedims.(collect.(variants))) # Creates an array instead
         variants = collect.(variants)
 
         fitness_idx = dt.column_label_index[Symbol(fitness_column)]

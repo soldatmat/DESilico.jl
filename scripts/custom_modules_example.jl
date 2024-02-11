@@ -6,7 +6,6 @@ using DESilico
 # We have a wild type sequence that we want to improve.
 wild_type = Variant(['A', 'A', 'A', 'A'], 1.0)
 
-
 # We define a custom screening oracle.
 # A custom `Screening` structure needs to implement a method with signature
 # `(::CustomScreening)(sequence::AbstractVector{Char})`

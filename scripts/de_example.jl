@@ -26,7 +26,6 @@ screening = DESilico.DictScreening(GB1_PATH, 0.0)
 # We will use `DESilico.TopK` with `k=1`, which simlpy chooses the sequence with the top fitness.
 selection_strategy = DESilico.TopK(1)
 
-
 # 3) `Mutagenesis` specifies the algorithm used to create new sequences from a library of parent sequences.
 # We will use `DESilico.SingleMutation` which creates all mutants which differ in one amino acid from the parent sequence/s.
 #
