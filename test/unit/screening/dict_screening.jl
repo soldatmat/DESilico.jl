@@ -21,11 +21,7 @@
             for key in keys(fitness_dict)
                 @test ds(key) == fitness_dict[key]
             end
-            try
-                ds(missing_key)
-            catch e
-                @test e == KeyError(missing_key) 
-            end
+            @test_throws KeyError(missing_key) ds(missing_key)
         end
 
         @testset "from file" begin
@@ -36,11 +32,7 @@
             for key in keys(fitness_dict)
                 @test ds(key) == fitness_dict[key]
             end
-            try
-                ds(missing_key)
-            catch e
-                @test e == KeyError(missing_key)
-            end
+            @test_throws KeyError(missing_key) ds(missing_key)
         end
     end
 

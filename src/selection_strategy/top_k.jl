@@ -1,10 +1,9 @@
 struct TopK <: SelectionStrategy
     k::Int
-    TopK(k) = k > 0 ? new(k) : error("`k` needs to be greater than 0")
+    TopK(k::Int) = k > 0 ? new(k) : throw(ArgumentError("`k` needs to be greater than 0"))
 end
 function (ss::TopK)(variants::AbstractVector{Variant})
     @assert length(variants) >= ss.k
-
     sort!(variants, by=x -> x.fitness, rev=true)
     selection = Vector{Vector{Char}}(undef, ss.k)
     for (idx, variant) in enumerate(variants[1:ss.k])
