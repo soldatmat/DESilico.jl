@@ -53,4 +53,4 @@ de!(
     mutagenesis=DummyMutagenesis(),
     n_iterations=length(fitness_dict) - 1,
 )
-ss.top_variant
+println(ss.top_variant)
