@@ -46,7 +46,18 @@
         a = Variant(['A', 'A'], 0)
         b = copy(a)
 
+        @test a == b
+        @test a.sequence === b.sequence
+        @test a.sequence == b.sequence
+        @test a.fitness == b.fitness
+    end
+
+    @testset "deepcopy" begin
+        a = Variant(['A', 'A'], 0)
+        b = deepcopy(a)
+
         @test a != b
+        @test a.sequence !== b.sequence
         @test a.sequence == b.sequence
         @test a.fitness == b.fitness
     end

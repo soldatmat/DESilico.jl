@@ -23,7 +23,7 @@
     # Define a custom Mutagenesis
     struct DummyMutagenesis <: DESilico.Mutagenesis end
     function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
-        new_parent = parents[1]
+        new_parent = copy(parents[1])
         new_parent[2] = new_parent[2] + 1
         return [new_parent]
     end

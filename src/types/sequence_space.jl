@@ -2,10 +2,11 @@
 TODO
 """
 mutable struct SequenceSpace
-    population::AbstractVector{<:AbstractVector{Char}}
+    population::Vector{Vector{Char}}
     variants::Set{Variant}
     top_variant::Variant
 
+    SequenceSpace(population, variants, top_variant) = new(population, variants, top_variant)
     SequenceSpace(variants::Set{Variant}) = new([v.sequence for v in collect(variants)], variants, get_top_variant(collect(variants)))
     SequenceSpace(variants::AbstractVector{Variant}) = new([v.sequence for v in variants], Set(variants), get_top_variant(variants))
 
