@@ -32,6 +32,6 @@ Specifies the oracle used to evaluate fitness of a sequence.
 
 Structures derived from this type have to implement the following method:
 `(::CustomScreening)(sequence::AbstractVector{Char})`
-This method should return the sequence's fitness value as a subtype of `Real`.
+This method should return the sequence's fitness value as a subtype of `Float64`.
 """
 abstract type Screening end

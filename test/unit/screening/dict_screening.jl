@@ -1,6 +1,7 @@
 @testset "dict_screening.jl" begin
+    file_path = joinpath(@__DIR__, "data/test_data.xlsx")
     fitness_dict = Dict(
-        ['V', 'D', 'G', 'V'] => 1,
+        ['V', 'D', 'G', 'V'] => 1.0,
         ['A', 'D', 'G', 'V'] => 0.0619096557142,
         ['C', 'D', 'G', 'V'] => 0.242237277886,
         ['D', 'D', 'G', 'V'] => 0.00647208961971,
@@ -25,7 +26,6 @@
         end
 
         @testset "from file" begin
-            file_path = "unit/screening/data/test_data.xlsx"
             ds = DESilico.DictScreening(file_path)
 
             @test typeof(ds) == DESilico.DictScreening
@@ -38,7 +38,6 @@
 
     @testset "DictScreeningWithDefault" begin
         @testset "direct constructor" begin
-            file_path = "unit/screening/data/test_data.xlsx"
             ds = DESilico.DictScreeningWithDefault(fitness_dict, default)
 
             @test typeof(ds) == DESilico.DictScreeningWithDefault
@@ -59,7 +58,6 @@
         end
 
         @testset "from file" begin
-            file_path = "unit/screening/data/test_data.xlsx"
             ds = DESilico.DictScreening(file_path, default)
 
             @test typeof(ds) == DESilico.DictScreeningWithDefault
