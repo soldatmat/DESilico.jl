@@ -22,7 +22,7 @@ function recombine_symbols(
     alphabets::Vector{Set{Char}},
     first_parent::AbstractVector{Char},
 )
-    mutant_library = Vector{Vector{Char}}([first_parent])
+    mutant_library = Vector{Vector{Char}}([copy(first_parent)])
     for position in 1:length(first_parent)
         new_mutants = Vector{Vector{Char}}([])
         for mutant in mutant_library

@@ -26,6 +26,7 @@
             ['C', 'A', 'B'],
             ['C', 'A', 'D'],
         ])
+        @test first_parent == ['A', 'A', 'B']
     end
 
     @testset "Recomination call" begin
@@ -43,6 +44,7 @@
             ['C', 'A', 'B'],
             ['C', 'A', 'D'],
         ])
+        @test parents == [['A', 'A', 'B'], ['C', 'A', 'D']]
 
         @test m(Vector{Vector{Char}}([])) == Vector{Vector{Char}}([])
     end

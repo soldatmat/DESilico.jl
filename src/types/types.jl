@@ -18,6 +18,7 @@ Inherit this type to define a custom mutagenesis.
 Structures derived from this type have to implement the following method:
 `(::CustomMutagenesis)(parents::AbstractVector{<:AbstractVector{Char}})`
 This method should return vector of newly created sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+This method should not alter `parents`!
 
 Structures derived from this type can have a parameter `m` which specifies the number of sequences that should be created.
 This can be useful with some SelectionStrategy implementations that require a specific amount of selected sequences as input.

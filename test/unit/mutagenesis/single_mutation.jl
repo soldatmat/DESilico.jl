@@ -15,4 +15,5 @@
     @test length(variant_library) == library_length
     @test length(set_vl) == library_length
     @test set_vl == correct_set
+    @test parents == [['A', 'A', 'A'], ['B', 'B', 'B']]
 end
