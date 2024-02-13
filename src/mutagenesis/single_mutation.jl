@@ -1,17 +1,42 @@
 struct SingleMutation <: Mutagenesis
     alphabet::Set{Char}
 end
-function (m::SingleMutation)(parents::AbstractVector{<:AbstractVector{Char}})
-    len_sequence = length(parents[1])
-    mutant_library = Vector{Vector{Char}}(undef, length(parents) * len_sequence * length(m.alphabet))
-    for (p, parent) in enumerate(parents)
-        for pos in 1:len_sequence
-            mutant = copy(parent)
-            for (s, symbol) in enumerate(m.alphabet)
+function (m::SingleMutation)(parents::AbstractVector{Vector{Char}})
+    # more efficient implementation for a single parent
+    function single_parent_mutation(parent::Vector{Char})
+        mutant_library = Vector{Vector{Char}}(undef, 1 + length(parent) * (length(m.alphabet) - 1))
+        mutant_library[1] = copy(parent)
+        n_mutants = 1
+        mutant = copy(parent)
+        for pos in 1:length(parent)
+            for symbol in m.alphabet
+                symbol == parent[pos] && continue
                 mutant[pos] = symbol
-                mutant_library[(p-1)*len_sequence*length(m.alphabet)+(pos-1)*length(m.alphabet)+s] = copy(mutant)
+                n_mutants += 1
+                mutant_library[n_mutants] = copy(mutant)
+            end
+            mutant[pos] = parent[pos]
+        end
+        return mutant_library
+    end
+
+    function multi_parent_mutation(parents::AbstractVector{Vector{Char}})
+        mutant_library = Set{Vector{Char}}([])
+        for parent in parents
+            for pos in 1:length(parents[1])
+                mutant = copy(parent)
+                for symbol in m.alphabet
+                    mutant[pos] = symbol
+                    push!(mutant_library, copy(mutant))
+                end
             end
         end
+        return collect(mutant_library)
     end
-    return collect(Set(mutant_library))
+
+    if length(parents) == 1
+        return single_parent_mutation(parents[1])
+    else
+        return multi_parent_mutation(parents)
+    end
 end
