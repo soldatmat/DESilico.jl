@@ -93,7 +93,7 @@
                 @test length(ss.population) == 2
                 @test Set(ss.population) == Set([['A'], ['B']])
                 @test typeof(ss.variants) == Vector{Variant}
-                @test isequal(ss.variants, [Variant(['A'], 0), Variant(['B'], 1)])
+                @test isequal(Set(ss.variants), Set([Variant(['A'], 0), Variant(['B'], 1)]))
                 @test isequal(ss.top_variant, Variant(['B'], 1))
             end
         end
