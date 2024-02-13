@@ -16,8 +16,8 @@ Specifies the algorithm used to create new sequences from a library of parent se
 Inherit this type to define a custom mutagenesis.
 
 Structures derived from this type have to implement the following method:
-`(::CustomMutagenesis)(parents::AbstractVector{<:AbstractVector{Char}})`
-This method should return vector of newly created sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+`(::CustomMutagenesis)(parents::AbstractVector{Vector{Char}})`
+This method should return vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.
 This method should not alter `parents`!
 
 Structures derived from this type can have a parameter `m` which specifies the number of sequences that should be created.
@@ -31,7 +31,7 @@ abstract type Mutagenesis end
 Specifies the oracle used to evaluate fitness of a sequence.
 
 Structures derived from this type have to implement the following method:
-`(::CustomScreening)(sequence::AbstractVector{Char})`
+`(::CustomScreening)(sequence::Vector{Char})`
 This method should return the sequence's fitness value as a subtype of `Float64`.
 """
 abstract type Screening end

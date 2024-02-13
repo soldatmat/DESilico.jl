@@ -4,7 +4,7 @@ using DESilico
 # of a directed evolution of GB1 (protein G domain B1).
 #
 # We will use the dataset generated in
-# Nicholas C Wu et al. “Adaptation in protein fitness landscapes is facilitated by indirect paths”. In: Elife 5 (2016), e16965.
+# Wu et al. “Adaptation in protein fitness landscapes is facilitated by indirect paths”. In: Elife 5 (2016), e16965.
 # which is available at
 # https://www.ncbi.nlm.nih.gov/bioproject/PRJNA278685/
 
@@ -46,4 +46,4 @@ de!(
     mutagenesis,
     n_iterations=5,
 )
-ss.top_variant
+println(ss.top_variant)

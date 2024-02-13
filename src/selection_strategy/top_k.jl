@@ -1,3 +1,11 @@
+"""
+Selects `k` sequences with the highest fitness.
+
+    TopK(k::Int)
+
+# Arguments
+- `k::Int`: Defines the number of sequences which will be selected.
+"""
 struct TopK <: SelectionStrategy
     k::Int
     TopK(k::Int) = k > 0 ? new(k) : throw(ArgumentError("`k` needs to be greater than 0"))

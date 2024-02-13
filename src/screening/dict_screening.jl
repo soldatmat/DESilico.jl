@@ -3,12 +3,28 @@ using XLSX
 """
 Uses a sequence-fitness dictionary to simulate the screening.
 
-Can be constructed with dictionary:
-    DictScreening(fitness_dict::Dict{Vector{Char},Float64})
-or path to a .xlsx file:
-    DictScreening(file_path::String; sheet::int=1, sequence_column::String="Variants", fitness_column::String="Fitness")
+    DictScreening(fitness_dict::Dict{Vector{Char},Float64}; kwargs...)
 
-Adding a `default::Float64` argument to one of the constructers returns a `DictScreeningWithDefault`.
+Constructs `DictScreening` from a dictionary.
+
+# Arguments
+- `fitness_dict::Dict{Vector{Char},Float64}`: Dictionary mapping sequences to their fitness values.
+
+# Keywords
+- `default::Float64`: If present, the constructor returns `DictScreeningWithDefault` instead.
+
+    DictScreening(file_path::String; kwargs...)
+
+Constructs `DictScreening` from a '.xlsx' file.
+    
+# Arguments
+- `file_path::String`: Defines path to a '.xlsx' file with the sequences and their fitness values.
+
+# Keywords
+- `sheet::Int`: The number of the excel sheet which will be loaded from the file. Default is 1.
+- `sequence_column::String`: Label in the first row of the column containing the sequences. Default is "Variants".
+- `fitness_column::String`: Label in the first row of the column containing the fitness values. Default is "Fitness".
+- `default::Float64`: If present, the constructor returns `DictScreeningWithDefault` instead.
 """
 struct DictScreening <: Screening
     fitness_dict::Dict{Vector{Char},Float64}
@@ -47,12 +63,25 @@ end
 
 """
 Uses a sequence-fitness dictionary to simulate the screening.
+Returns a default fitness value for sequences not present in the dictionary.
 
-Can be constructed directly with dictionary and default fitness value:
-    DictScreeningWithDefault(fitness_dict::Dict{Vector{Char},Float64}, default::Float6)
-or via `DictScreening` constructors by adding the default fitness value:
-    DictScreening(fitness_dict::Dict{Vector{Char},Float64}, default::Float64)
-    DictScreening(file_path::String, default::Float64; sheet::Int=1, sequence_column::String="Variants", fitness_column::String="Fitness")
+    DictScreeningWithDefault(fitness_dict::Dict{Vector{Char},Float64}, default::Float64)
+
+# Arguments
+- `fitness_dict::Dict{Vector{Char},Float64}`: Dictionary mapping sequences to their fitness values.
+- `default::Float64`: Default fitness value returned for sequences not present in `fitness_dict`.
+
+    DictScreening(fitness_dict::Dict{Vector{Char},Float64}; default::Float64)
+    DictScreening(file_path::String; default::Float64, kwargs...)
+
+Constructs `DictScreeningWithDefault` via `DictScreening` constructors by adding the `default` fitness value.
+
+# Arguments
+    See `DictScreening`.
+
+# Keywords
+    `default::Float64`: Default fitness value returned for sequences not present in `fitness_dict`.
+    See `DictScreening`.
 """
 struct DictScreeningWithDefault <: Screening
     fitness_dict::Dict{Vector{Char},Float64}

@@ -1,3 +1,11 @@
+"""
+Creates all single-symbol mutants for each parent sequence.
+
+    SingleMutation(alphabet::Set{Char})
+
+# Arguments
+`alphabet::Set{Char}`: Contains the characters which will be used to create mutants.
+"""
 struct SingleMutation <: Mutagenesis
     alphabet::Set{Char}
 end

@@ -1,7 +1,15 @@
+"""
+Represents a screened sequence with its fitness value.
+
+    Variant(sequence::Vector{Char}, fitness::Float64)
+
+# Arguments
+- `sequence::Vector{Char}`: The sequence.
+- `fitness::Float64`: Fitness value of the sequence.
+"""
 struct Variant
     sequence::Vector{Char}
     fitness::Float64
-    Variant(sequence, fitness) = new(sequence, fitness)
 end
 
 Base.copy(v::Variant) = Variant(v.sequence, v.fitness)

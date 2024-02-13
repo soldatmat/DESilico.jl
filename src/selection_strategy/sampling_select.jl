@@ -1,5 +1,16 @@
 using StatsBase
 
+"""
+Randomly selects `k` sequences.
+
+    SamplingSelect(k::Int; kwargs...)
+
+# Arguments
+- `k::Int`: Defines the number of sequences which will be selected.
+
+# Keywords
+- `weighting::Float64`: Adding this argument to the constructer returns a `WeightedSamplingSelect` instead.
+"""
 struct SamplingSelect <: SelectionStrategy
     k::Int
     function SamplingSelect(k::Int; weighting::Union{Real,Nothing}=nothing)
@@ -12,6 +23,22 @@ function (ss::SamplingSelect)(variants::AbstractVector{Variant})
     map(variant -> variant.sequence, sample(variants, ss.k, replace=false))
 end
 
+"""
+Randomly selects `k` sequences with probabilities weighted by the sequences' fitness values.
+
+Constructed directly:
+    WeightedSamplingSelect(k::Int; kwargs...)
+or via `SamplingSelect` constructor by providing the `weighting` keyword:
+    SamplingSelect(k::Int; kwargs...)
+
+# Arguments
+
+- `k::Int`: Defines the number of sequences which will be selected.
+
+# Keywords
+
+- `weighting::Float64`: Defines the influence of fitness values on the weighted probabilities on scale <0,1).
+"""
 struct WeightedSamplingSelect <: SelectionStrategy
     k::Int
     weighting::Real

@@ -7,8 +7,8 @@ using DESilico
 wild_type = Variant(['A', 'A', 'A', 'A'], 1.0)
 
 # We define a custom screening oracle.
-# A custom `Screening` structure needs to implement a method with signature
-# `(::CustomScreening)(sequence::AbstractVector{Char})`
+# A custom `Screening` structure should implement a method with signature
+# `(::CustomScreening)(sequence::Vector{Char})`
 # which returns fitness value of the input `sequence` as a subtype of `Real`.
 fitness_dict = Dict([
     (['A', 'A', 'A', 'A'], 1.0),
@@ -23,18 +23,18 @@ function (::DummyScreening)(sequence::Vector{Char})
 end
 
 # We define a custom SelectionStrategy.
-# A custom `SelectionStrategy` structure needs to implement a method with signature
+# A custom `SelectionStrategy` structure should implement a method with signature
 # `(::CustomSelectionStrategy)(sequence_fitness_pairs::AbstractVector{Variant})`
-# which returns a vector of the selected sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+# which returns a vector of the selected sequences as a subtype of `AbstractVector{Vector{Char}}`.
 struct DummySelectionStrategy <: DESilico.SelectionStrategy end
 function (::DummySelectionStrategy)(variants::Vector{Variant})
     [variants[1].sequence]
 end
 
 # We define a custom Mutagenesis.
-# A custom `Mutagenesis` structure needs to implement a method with signature
-# `(::CustomMutagenesis)(parents::Vector{Vector{Char}})`
-# which returns a vector of the created sequences as a subtype of `AbstractVector{<:AbstractVector{Char}}`.
+# A custom `Mutagenesis` structure should implement a method with signature
+# `(::CustomMutagenesis)(parents::AbstractVector{Vector{Char}})`
+# which returns a vector of the created sequences as a subtype of `AbstractVector{Vector{Char}}`.
 struct DummyMutagenesis <: DESilico.Mutagenesis end
 function (::DummyMutagenesis)(parents::Vector{Vector{Char}})
     new_parent = copy(parents[1])
