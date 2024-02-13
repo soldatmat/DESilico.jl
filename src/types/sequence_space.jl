@@ -18,6 +18,10 @@ mutable struct SequenceSpace{T}
     SequenceSpace{Vector{Variant}}(variants::Set{Variant}) = new{Vector{Variant}}([v.sequence for v in collect(variants)], collect(variants), get_top_variant(collect(variants)))
     SequenceSpace{Vector{Variant}}(variants::AbstractVector{Variant}) = new{Vector{Variant}}([v.sequence for v in variants], variants, get_top_variant(variants))
 
+    SequenceSpace{Nothing}(population, top_variant) = new{Nothing}(population, nothing, top_variant)
+    SequenceSpace{Nothing}(variants::Set{Variant}) = new{Nothing}([v.sequence for v in collect(variants)], nothing, get_top_variant(collect(variants)))
+    SequenceSpace{Nothing}(variants::AbstractVector{Variant}) = new{Nothing}([v.sequence for v in variants], nothing, get_top_variant(variants))
+
     get_top_variant(variants::AbstractVector{Variant}) = sort(variants, by=x -> x.fitness, rev=true)[1]
 end
 
@@ -27,6 +31,7 @@ end
 function update_variants!(ss::SequenceSpace{Vector{Variant}}, variants::AbstractVector{Variant})
     map(variant -> push!(ss.variants, variant), variants)
 end
+function update_variants!(ss::SequenceSpace{Nothing}, variants) end
 
 function update_top_variant!(ss::SequenceSpace, variant::Variant)
     variant.fitness > ss.top_variant.fitness && (ss.top_variant = variant)
