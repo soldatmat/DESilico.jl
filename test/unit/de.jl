@@ -10,9 +10,8 @@
         (['A', 'E', 'A', 'A'], 0.0),
     ])
     struct DummyScreening <: DESilico.Screening end
-    function (::DummyScreening)(sequence::Vector{Char})
-        fitness_dict[sequence]
-    end
+    (::DummyScreening)(sequence::Vector{Char}) = fitness_dict[sequence]
+    (s::DummyScreening)(sequences::AbstractVector{Vector{Char}}) = map(sequence -> s(sequence), sequences)
 
     # Define a custom SelectionStrategy
     struct DummySelectionStrategy <: DESilico.SelectionStrategy end

@@ -15,56 +15,57 @@
     missing_key = ['V', 'D', 'G', 'A']
 
     @testset "DictScreening" begin
-        @testset "from Dict" begin
-            ds = DESilico.DictScreening(fitness_dict)
-
-            @test typeof(ds) == DESilico.DictScreening
-            for key in keys(fitness_dict)
-                @test ds(key) == fitness_dict[key]
+        @testset "constructors" begin
+            @testset "from Dict" begin
+                ds = DESilico.DictScreening(fitness_dict)
+                @test typeof(ds) == DESilico.DictScreening
+                @test ds.fitness_dict == fitness_dict
             end
-            @test_throws KeyError(missing_key) ds(missing_key)
+            @testset "from file" begin
+                ds = DESilico.DictScreening(file_path)
+                @test typeof(ds) == DESilico.DictScreening
+                @test ds.fitness_dict == fitness_dict
+            end
         end
 
-        @testset "from file" begin
-            ds = DESilico.DictScreening(file_path)
-
-            @test typeof(ds) == DESilico.DictScreening
+        @testset "call" begin
+            ds = DESilico.DictScreening(fitness_dict)
             for key in keys(fitness_dict)
                 @test ds(key) == fitness_dict[key]
             end
             @test_throws KeyError(missing_key) ds(missing_key)
+            @test isequal(ds(collect(keys(fitness_dict))), collect(values(fitness_dict)))
         end
     end
 
     @testset "DictScreeningWithDefault" begin
-        @testset "direct constructor" begin
+        @testset "constructors" begin
+            @testset "direct" begin
+                ds = DESilico.DictScreeningWithDefault(fitness_dict, default)
+                @test typeof(ds) == DESilico.DictScreeningWithDefault
+                @test ds.fitness_dict == fitness_dict
+            end
+
+            @testset "from Dict" begin
+                ds = DESilico.DictScreening(fitness_dict, default)
+                @test typeof(ds) == DESilico.DictScreeningWithDefault
+                @test ds.fitness_dict == fitness_dict
+            end
+
+            @testset "from file" begin
+                ds = DESilico.DictScreening(file_path, default)
+                @test typeof(ds) == DESilico.DictScreeningWithDefault
+                @test ds.fitness_dict == fitness_dict
+            end
+        end
+
+        @testset "call" begin
             ds = DESilico.DictScreeningWithDefault(fitness_dict, default)
-
-            @test typeof(ds) == DESilico.DictScreeningWithDefault
             for key in keys(fitness_dict)
                 @test ds(key) == fitness_dict[key]
             end
             @test ds(missing_key) == default
-        end
-
-        @testset "from Dict" begin
-            ds = DESilico.DictScreening(fitness_dict, default)
-
-            @test typeof(ds) == DESilico.DictScreeningWithDefault
-            for key in keys(fitness_dict)
-                @test ds(key) == fitness_dict[key]
-            end
-            @test ds(missing_key) == default
-        end
-
-        @testset "from file" begin
-            ds = DESilico.DictScreening(file_path, default)
-
-            @test typeof(ds) == DESilico.DictScreeningWithDefault
-            for key in keys(fitness_dict)
-                @test ds(key) == fitness_dict[key]
-            end
-            @test ds(missing_key) == default
+            @test isequal(ds(collect(keys(fitness_dict))), collect(values(fitness_dict)))
         end
     end
 end

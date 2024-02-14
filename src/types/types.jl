@@ -31,7 +31,7 @@ abstract type Mutagenesis end
 Specifies the oracle used to evaluate fitness of a sequence.
 
 Structures derived from this type have to implement the following method:
-`(::CustomScreening)(sequence::Vector{Char})`
-This method should return the sequence's fitness value as a subtype of `Float64`.
+`(::CustomScreening)(sequences::AbstractVector{Vector{Char}})`
+This method should return the sequences' fitness values as a subtype of `AbstarctVector{Float64}`.
 """
 abstract type Screening end

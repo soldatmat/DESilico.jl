@@ -33,10 +33,7 @@ function de!(
     end
 end
 
-function screeen_mutants(sequences::AbstractVector{<:AbstractVector{Char}}, screening::Screening)
-    variants = Vector{Variant}(undef, length(sequences))
-    for (idx, sequence) in enumerate(sequences)
-        variants[idx] = Variant(sequence, screening(sequence))
-    end
-    return variants
+function screeen_mutants(sequences::AbstractVector{Vector{Char}}, screening::Screening)
+    fitness = screening(sequences)
+    map((s, f) -> Variant(s, f), sequences, fitness)
 end

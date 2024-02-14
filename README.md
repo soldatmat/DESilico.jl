@@ -38,8 +38,8 @@ which should return a vector of newly created sequences as a subtype of `Abstrac
 
 ### Screening
 Structures derived from `Screening` have to implement the following method:  
-`(::CustomScreening)(sequence::Vector{Char})`  
-which should return the sequence's fitness value as a subtype of `Float64`.
+`(::CustomScreening)(sequences::AbstractVector{Vector{Char}})`  
+which should return the sequences' fitness values as a subtype of `AbstarctVector{Float64}`.
 
 ### SelectionStrategy
 Structures derived from `SelectionStrategy` have to implement the following method:  

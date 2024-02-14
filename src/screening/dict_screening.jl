@@ -58,9 +58,8 @@ function load_dict(file_path::String; sheet::Int, sequence_column::String, fitne
     Dict(variants .=> fitness)
 end
 
-function (s::DictScreening)(sequence::Vector{Char})
-    s.fitness_dict[sequence]
-end
+(s::DictScreening)(sequence::Vector{Char}) = s.fitness_dict[sequence]
+(s::DictScreening)(sequences::AbstractVector{Vector{Char}}) = map(sequence -> s(sequence), sequences)
 
 """
 Uses a sequence-fitness dictionary to simulate the screening.
@@ -89,6 +88,5 @@ struct DictScreeningWithDefault <: Screening
     default::Float64
 end
 
-function (s::DictScreeningWithDefault)(sequence::Vector{Char})
-    get(s.fitness_dict, sequence, s.default)
-end
+(s::DictScreeningWithDefault)(sequence::Vector{Char}) = get(s.fitness_dict, sequence, s.default)
+(s::DictScreeningWithDefault)(sequences::AbstractVector{Vector{Char}}) = map(sequence -> s(sequence), sequences)
