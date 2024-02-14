@@ -54,4 +54,5 @@ https://github.com/soldamatlab/DESilico.jl/blob/master/scripts/de_example.jl
 For example of definition and use of custom modules, see  
 https://github.com/soldamatlab/DESilico.jl/blob/master/scripts/custom_modules_example.jl
 
-
+For exploration of implemented modules, use  
+https://github.com/soldamatlab/DESilico.jl/blob/master/scripts/de_sandbox.jl
