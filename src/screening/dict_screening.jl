@@ -1,5 +1,9 @@
 using XLSX
 
+SHEET = 1
+SEQUENCE_COLUMN = "Variants"
+FITNESS_COLUMN = "Fitness"
+
 """
 Uses a sequence-fitness dictionary to simulate the screening.
 
@@ -28,23 +32,20 @@ Constructs `DictScreening` from a '.xlsx' file.
 """
 struct DictScreening <: Screening
     fitness_dict::Dict{Vector{Char},Float64}
-    #function DictScreening(fitness_dict)
-    #    new(fitness_dict)
-    #end
 end
 
-function DictScreening(file_path::String; sheet::Int=1, sequence_column::String="Variants", fitness_column::String="Fitness")
+function DictScreening(file_path::String; sheet::Int=SHEET, sequence_column::String=SEQUENCE_COLUMN, fitness_column::String=FITNESS_COLUMN)
     DictScreening(load_dict(file_path; sheet, sequence_column, fitness_column))
 end
 
 function DictScreening(fitness_dict, default)
     DictScreeningWithDefault(fitness_dict, default)
 end
-function DictScreening(file_path::String, default::Float64; sheet::Int=1, sequence_column::String="Variants", fitness_column::String="Fitness")
+function DictScreening(file_path::String, default::Float64; sheet::Int=SHEET, sequence_column::String=SEQUENCE_COLUMN, fitness_column::String=FITNESS_COLUMN)
     DictScreeningWithDefault(load_dict(file_path; sheet, sequence_column, fitness_column), default)
 end
 
-function load_dict(file_path::String; sheet::Int, sequence_column::String, fitness_column::String)
+function load_dict(file_path::String; sheet::Int=SHEET, sequence_column::String=SEQUENCE_COLUMN, fitness_column::String=FITNESS_COLUMN)
     xf = XLSX.readxlsx(file_path)
     dt = XLSX.readtable(file_path, XLSX.sheetnames(xf)[sheet])
 
