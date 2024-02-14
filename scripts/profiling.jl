@@ -1,9 +1,9 @@
 include("de_sandbox.jl")
 
 """
-A simple function for profiling de!().
+A simple function for profiling `de!()`.
 
-Select different DE modules (Screening, SelectionStrategy, Mutagenesis) and `initial_population`
+Select different DE modules (`Screening`, `SelectionStrategy`, `Mutagenesis`) and `initial_population`
 in `de_sandbox.jl` to profile different modules.
 """
 function run_de(n::Int)
@@ -19,5 +19,23 @@ function run_de(n::Int)
     end
 end
 
+"""
+A simple function for profiling `de_evaluation()`.
+
+Select different DE modules (`Screening`, `SelectionStrategy`, `Mutagenesis`) and `initial_population`
+in `de_sandbox.jl` to profile different modules.
+"""
+function run_de_evaluation(n::Int)
+    de_evaluation(
+        SequenceSpace{Nothing}(initial_population),
+        n;
+        screening,
+        selection_strategy,
+        mutagenesis,
+        n_iterations=10,
+        parallel=false,
+    )
+end
+
 # Use your preferred profiling tool, for example:
-# @profview run_de2(10000)
+# @profview run_de(10000)
