@@ -1,12 +1,14 @@
-using DESilico
+"""
+This example demonstrates usage of DESilico for simulation
+of a directed evolution of GB1 (protein G domain B1).
 
-# This example demonstrates usage of DESilico for simulation
-# of a directed evolution of GB1 (protein G domain B1).
-#
-# We will use the dataset generated in
-# Wu et al. “Adaptation in protein fitness landscapes is facilitated by indirect paths”. In: Elife 5 (2016), e16965.
-# which is available at
-# https://www.ncbi.nlm.nih.gov/bioproject/PRJNA278685/
+We will use the dataset generated in
+Wu et al. “Adaptation in protein fitness landscapes is facilitated by indirect paths”. In: Elife 5 (2016), e16965.
+which is available at
+https://www.ncbi.nlm.nih.gov/bioproject/PRJNA278685/
+"""
+
+using DESilico
 
 # The script assumes the file with GB1 dataset is saved in the scripts folder.
 # You can change the path here:
