@@ -43,7 +43,7 @@ which should return the sequences' fitness values as a subtype of `AbstarctVecto
 
 ### SelectionStrategy
 Structures derived from `SelectionStrategy` have to implement the following method:  
-`(::CustomMutagenesis)(parents::AbstractVector{Vector{Char}})`  
+`(::CustomSelectionStrategy)(variants::AbstractVector{Variant})`  
 which should return a vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.  
 This method should not alter `parents`!
 
