@@ -10,6 +10,7 @@ struct TopK <: SelectionStrategy
     k::Int
     TopK(k::Int) = k > 0 ? new(k) : throw(ArgumentError("`k` needs to be greater than 0"))
 end
+
 function (ss::TopK)(variants::AbstractVector{Variant})
     @assert length(variants) >= ss.k
     sort!(variants, by=x -> x.fitness, rev=true)

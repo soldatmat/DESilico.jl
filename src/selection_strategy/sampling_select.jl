@@ -18,6 +18,7 @@ struct SamplingSelect <: SelectionStrategy
         k > 0 ? new(k) : throw(ArgumentError("`k` needs to be greater than 0"))
     end
 end
+
 function (ss::SamplingSelect)(variants::AbstractVector{Variant})
     @assert length(variants) >= ss.k
     map(variant -> variant.sequence, sample(variants, ss.k, replace=false))
@@ -49,6 +50,7 @@ struct WeightedSamplingSelect <: SelectionStrategy
         new(k, weighting)
     end
 end
+
 function (ss::WeightedSamplingSelect)(variants::AbstractVector{Variant})
     @assert length(variants) >= ss.k
     fitness = map(variant -> variant.fitness, variants)

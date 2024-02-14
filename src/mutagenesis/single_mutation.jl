@@ -9,6 +9,7 @@ Creates all single-symbol mutants for each parent sequence.
 struct SingleMutation <: Mutagenesis
     alphabet::Set{Char}
 end
+
 function (m::SingleMutation)(parents::AbstractVector{Vector{Char}})
     # more efficient implementation for a single parent
     function single_parent_mutation(parent::Vector{Char})

@@ -4,6 +4,7 @@ Creates all recombinations of parents sequences.
     Recombination()
 """
 struct Recombination <: Mutagenesis end
+
 function (m::Recombination)(parents::AbstractVector{Vector{Char}})
     @assert DESilico.same_length_sequences(parents)
     length(parents) == 0 && return Vector{Vector{Char}}([])

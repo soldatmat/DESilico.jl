@@ -78,25 +78,24 @@ mutable struct SequenceSpace{T}
     population::Vector{Vector{Char}}
     variants::T
     top_variant::Variant
-
-    SequenceSpace{T}(population, variants, top_variant) where {T} = new{T}(population, variants, top_variant)
-    SequenceSpace(population, variants::T, top_variant) where {T} = new{T}(population, variants, top_variant)
-
-    SequenceSpace(variants::Set{Variant}) = SequenceSpace{Set{Variant}}(variants)
-    SequenceSpace(variants::AbstractVector{Variant}) = SequenceSpace{Set{Variant}}(variants)
-
-    SequenceSpace{Set{Variant}}(variants::Set{Variant}) = new{Set{Variant}}([v.sequence for v in collect(variants)], variants, get_top_variant(collect(variants)))
-    SequenceSpace{Set{Variant}}(variants::AbstractVector{Variant}) = new{Set{Variant}}([v.sequence for v in variants], Set(variants), get_top_variant(variants))
-
-    SequenceSpace{Vector{Variant}}(variants::Set{Variant}) = new{Vector{Variant}}([v.sequence for v in collect(variants)], collect(variants), get_top_variant(collect(variants)))
-    SequenceSpace{Vector{Variant}}(variants::AbstractVector{Variant}) = new{Vector{Variant}}([v.sequence for v in variants], variants, get_top_variant(variants))
-
-    SequenceSpace{Nothing}(population, top_variant) = new{Nothing}(population, nothing, top_variant)
-    SequenceSpace{Nothing}(variants::Set{Variant}) = new{Nothing}([v.sequence for v in collect(variants)], nothing, get_top_variant(collect(variants)))
-    SequenceSpace{Nothing}(variants::AbstractVector{Variant}) = new{Nothing}([v.sequence for v in variants], nothing, get_top_variant(variants))
-
-    get_top_variant(variants::AbstractVector{Variant}) = sort(variants, by=x -> x.fitness, rev=true)[1]
 end
+
+SequenceSpace(population, variants::T, top_variant) where {T} = SequenceSpace{T}(population, variants, top_variant)
+
+SequenceSpace(variants::Set{Variant}) = SequenceSpace{Set{Variant}}(variants)
+SequenceSpace(variants::AbstractVector{Variant}) = SequenceSpace{Set{Variant}}(variants)
+
+SequenceSpace{Set{Variant}}(variants::Set{Variant}) = SequenceSpace{Set{Variant}}([v.sequence for v in collect(variants)], variants, get_top_variant(collect(variants)))
+SequenceSpace{Set{Variant}}(variants::AbstractVector{Variant}) = SequenceSpace{Set{Variant}}([v.sequence for v in variants], Set(variants), get_top_variant(variants))
+
+SequenceSpace{Vector{Variant}}(variants::Set{Variant}) = SequenceSpace{Vector{Variant}}([v.sequence for v in collect(variants)], collect(variants), get_top_variant(collect(variants)))
+SequenceSpace{Vector{Variant}}(variants::AbstractVector{Variant}) = SequenceSpace{Vector{Variant}}([v.sequence for v in variants], variants, get_top_variant(variants))
+
+SequenceSpace{Nothing}(population, top_variant) = SequenceSpace{Nothing}(population, nothing, top_variant)
+SequenceSpace{Nothing}(variants::Set{Variant}) = SequenceSpace{Nothing}([v.sequence for v in collect(variants)], nothing, get_top_variant(collect(variants)))
+SequenceSpace{Nothing}(variants::AbstractVector{Variant}) = SequenceSpace{Nothing}([v.sequence for v in variants], nothing, get_top_variant(variants))
+
+get_top_variant(variants::AbstractVector{Variant}) = sort(variants, by=x -> x.fitness, rev=true)[1]
 
 function update_variants!(ss::SequenceSpace{Set{Variant}}, variants::AbstractVector{Variant})
     map(variant -> push!(ss.variants, variant), variants)
