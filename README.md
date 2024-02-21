@@ -34,7 +34,8 @@ The `SequenceSpace` structure contains the current population of sequences as we
 ### Mutagenesis
 Structures derived from `Mutagenesis` have to implement the following method:  
 `(::CustomMutagenesis)(parents::AbstractVector{Vector{Char}})`  
-which should return a vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.
+which should return a vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.  
+This method should not alter `parents`!
 
 ### Screening
 Structures derived from `Screening` have to implement the following method:  
@@ -44,8 +45,7 @@ which should return the sequences' fitness values as a subtype of `AbstarctVecto
 ### SelectionStrategy
 Structures derived from `SelectionStrategy` have to implement the following method:  
 `(::CustomSelectionStrategy)(variants::AbstractVector{Variant})`  
-which should return a vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.  
-This method should not alter `parents`!
+which should return a vector of newly created sequences as a subtype of `AbstractVector{Vector{Char}}`.
 
 ## Examples
 For example of usage with predefined modules, see  
