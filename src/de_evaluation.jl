@@ -11,7 +11,7 @@ Returns the top fitness obtained in each run as a `Vector{Float64}`.
 # Keywords
 - `screening::Screening`: Assigns fitness value to a sequence.
 - `selection_strategy::SelectionStrategy`: Defines the algorithm used to select new parents from a pool of screened variants.
-- `mutagenesis:Mutagenesis`: Defines the algorithm used to create new mutants from current population.
+- `mutagenesis::Mutagenesis`: Defines the algorithm used to create new mutants from current population.
 - `n_iterations::Integer`: Specifies the number of iteration of `de!()`.
 - `parallel::Bool=false`: If true, the calls of `de!()` will be run in parallel.
 """
@@ -47,7 +47,7 @@ Returns the top fitness obtained in each run as a `Vector{Float64}`.
 # Keywords
 - `screening::Screening`: Assigns fitness value to a sequence.
 - `selection_strategy::SelectionStrategy`: Defines the algorithm used to select new parents from a pool of screened variants.
-- `mutagenesis:Mutagenesis`: Defines the algorithm used to create new mutants from current population.
+- `mutagenesis::Mutagenesis`: Defines the algorithm used to create new mutants from current population.
 - `n_iterations::Integer`: Specifies the number of iteration of `de!()`.
 - `parallel::Bool=false`: If true, the calls of `de!()` will be run in parallel.
 """

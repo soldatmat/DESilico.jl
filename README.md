@@ -24,7 +24,7 @@ Arguments
 Keywords
 - `screening::Screening`: Assigns fitness value to a sequence.
 - `selection_strategy::SelectionStrategy`: Defines the algorithm used to select new parents from a pool of screened variants.
-- `mutagenesis:Mutagenesis`: Defines the algorithm used to create new mutants from current population.
+- `mutagenesis::Mutagenesis`: Defines the algorithm used to create new mutants from current population.
 - `n_iterations::Integer=1`: Specifies the number of iteration of DE. Has to be greater than 0.
 
 The `SequenceSpace` structure contains the current population of sequences as well as information about the sequence space learned through previous iterations of DE. It is helpful for consecutive runs of the algorithm (possibly with different modules).

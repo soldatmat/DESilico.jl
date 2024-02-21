@@ -9,7 +9,7 @@ Perform directed `n_iterations` of directed evolution and save results into `seq
 # Keywords
 - `screening::Screening`: Assigns fitness value to a sequence.
 - `selection_strategy::SelectionStrategy`: Defines the algorithm used to select new parents from a pool of screened variants.
-- `mutagenesis:Mutagenesis`: Defines the algorithm used to create new mutants from current population.
+- `mutagenesis::Mutagenesis`: Defines the algorithm used to create new mutants from current population.
 - `n_iterations::Integer=1`: Specifies the number of iteration of DE. Has to be greater than 0.
 
 # Examples
