@@ -6,6 +6,7 @@ export de!, de_evaluation
 include("types/include.jl")
 include("de.jl")
 include("de_evaluation.jl")
+include("alphabet_extractor/include.jl")
 include("selection_strategy/include.jl")
 include("mutagenesis/include.jl")
 include("screening/include.jl")

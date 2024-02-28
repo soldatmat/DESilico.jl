@@ -35,3 +35,13 @@ Structures derived from this type have to implement the following method:
 This method should return the sequences' fitness values as a subtype of `AbstarctVector{Float64}`.
 """
 abstract type Screening end
+
+"""
+Extracts an alphabet for each position of sequences with same length.
+
+Structures derived from this type have to implement the following method:
+`(::CustomAlphabetExtractor)(sequences::AbstractVector{Vector{Char}})`
+This method should return an alphabet for each position in `sequences` as a subtype of `AbstractVector{Set{Char}}`.
+This method can assume that `sequences` have the same length.
+"""
+abstract type AbstractAlphabetExtractor end
