@@ -23,15 +23,13 @@ function (m::Recombination)(parents::AbstractVector{Vector{Char}})
     @assert DESilico.same_length_sequences(parents)
     length(parents) == 0 && return Vector{Vector{Char}}([])
     alphabets = m.alphabet_extractor(parents)
-    mutant_library = _recombine_symbols(alphabets, parents[1])
+    _recombine_symbols(alphabets)
 end
 
-function _recombine_symbols(
-    alphabets::Vector{Set{Char}},
-    first_parent::AbstractVector{Char},
-)
-    mutant_library = Vector{Vector{Char}}([copy(first_parent)])
-    for position in 1:length(first_parent)
+function _recombine_symbols(alphabets::Vector{Set{Char}})
+    sequence = map(alphabet -> [symbol for symbol in alphabet][1], alphabets)
+    mutant_library = Vector{Vector{Char}}([sequence])
+    for position in 1:length(alphabets)
         new_mutants = Vector{Vector{Char}}([])
         for mutant in mutant_library
             for symbol in alphabets[position]

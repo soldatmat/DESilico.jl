@@ -5,8 +5,7 @@
             Set(['A']),
             Set(['B', 'D']),
         ]
-        first_parent = ['A', 'A', 'B']
-        mutants = DESilico._recombine_symbols(alphabets, first_parent)
+        mutants = DESilico._recombine_symbols(alphabets)
         @test length(mutants) == 4
         @test Set(mutants) == Set([
             ['A', 'A', 'B'],
@@ -14,7 +13,6 @@
             ['C', 'A', 'B'],
             ['C', 'A', 'D'],
         ])
-        @test first_parent == ['A', 'A', 'B']
     end
 
     @testset "Constructors" begin
