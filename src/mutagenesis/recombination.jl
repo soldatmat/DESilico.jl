@@ -1,29 +1,44 @@
+using StatsBase
+
 """
 Creates all recombinations of parents sequences.
 
-    Recombination{T}(alphabet_extractor::T)
-    Recombination(alphabet_extractor::T)
+    Recombination{T}(alphabet_extractor::T, n::Union{Int,Nothing})
+    Recombination(alphabet_extractor::T, n::Union{Int,Nothing})
+    Recombination{T}(alphabet_extractor::T; n::Union{Int,Nothing}=nothing)
+    Recombination(alphabet_extractor::T; n::Union{Int,Nothing}=nothing)
 
 Constructs `Recombination{T}`.
 
 # Arguments
 - `alphabet_extractor::T`: Structure called to obtained positional alphabets from parent sequences.
+- `n::Union{Int,Nothing}`: If not `nothing`, `n` sequences will be sampled randomly from the recombined mutants.
 
-    Recombination()
+    Recombination(; n=nothing)
 
 Constructs `Recombination{AlphabetExctractor}`.
+
+# Keywords
+- `n::Union{Int,Nothing}`: If not `nothing`, `n` sequences will be sampled randomly from the recombined mutants.
 """
 struct Recombination{T} <: Mutagenesis where {T<:AbstractAlphabetExtractor}
     alphabet_extractor::T
+    n::Union{Int,Nothing}
 end
 
-Recombination() = Recombination(AlphabetExctractor())
+Recombination{T}(alphabet_extractor::T; n=nothing) where {T} = Recombination(alphabet_extractor, n)
+Recombination(alphabet_extractor::AbstractAlphabetExtractor; n=nothing) = Recombination(alphabet_extractor, n)
+Recombination(; n=nothing) = Recombination(AlphabetExctractor(); n)
 
 function (m::Recombination)(parents::AbstractVector{Vector{Char}})
     @assert DESilico.same_length_sequences(parents)
     length(parents) == 0 && return Vector{Vector{Char}}([])
     alphabets = m.alphabet_extractor(parents)
-    _recombine_symbols(alphabets)
+    mutants = _recombine_symbols(alphabets)
+    if !isnothing(m.n)
+        mutants = sample(mutants, m.n, replace=false)
+    end
+    return mutants
 end
 
 function _recombine_symbols(alphabets::Vector{Set{Char}})
