@@ -17,49 +17,49 @@
 
     @testset "Constructors" begin
         m = DESilico.Recombination()
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test isnothing(m.n)
 
-        ae = DESilico.AlphabetExctractor()
+        ae = DESilico.AlphabetExtractor()
         m = DESilico.Recombination(ae)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test isnothing(m.n)
 
-        ae = DESilico.AlphabetExctractor()
-        m = DESilico.Recombination{DESilico.AlphabetExctractor}(ae)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        ae = DESilico.AlphabetExtractor()
+        m = DESilico.Recombination{DESilico.AlphabetExtractor}(ae)
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test isnothing(m.n)
 
         m = DESilico.Recombination(; n=3)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test m.n == 3
 
-        ae = DESilico.AlphabetExctractor()
+        ae = DESilico.AlphabetExtractor()
         m = DESilico.Recombination(ae, 3)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test m.n == 3
 
-        ae = DESilico.AlphabetExctractor()
+        ae = DESilico.AlphabetExtractor()
         m = DESilico.Recombination(ae; n=3)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test m.n == 3
 
-        ae = DESilico.AlphabetExctractor()
-        m = DESilico.Recombination{DESilico.AlphabetExctractor}(ae, 3)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        ae = DESilico.AlphabetExtractor()
+        m = DESilico.Recombination{DESilico.AlphabetExtractor}(ae, 3)
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test m.n == 3
 
-        ae = DESilico.AlphabetExctractor()
-        m = DESilico.Recombination{DESilico.AlphabetExctractor}(ae; n=3)
-        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExctractor}
-        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExctractor
+        ae = DESilico.AlphabetExtractor()
+        m = DESilico.Recombination{DESilico.AlphabetExtractor}(ae; n=3)
+        @test typeof(m) == DESilico.Recombination{DESilico.AlphabetExtractor}
+        @test typeof(m.alphabet_extractor) == DESilico.AlphabetExtractor
         @test m.n == 3
     end
 

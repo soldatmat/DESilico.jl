@@ -1,6 +1,6 @@
 @testset "alphabet_extractor.jl" begin
-    ae = DESilico.AlphabetExctractor()
-    @test typeof(ae) == DESilico.AlphabetExctractor
+    ae = DESilico.AlphabetExtractor()
+    @test typeof(ae) == DESilico.AlphabetExtractor
 
     parents = [
         ['A', 'A', 'A'],

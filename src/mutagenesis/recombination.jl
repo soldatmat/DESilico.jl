@@ -16,7 +16,7 @@ Constructs `Recombination{T}`.
 
     Recombination(; n=nothing)
 
-Constructs `Recombination{AlphabetExctractor}`.
+Constructs `Recombination{AlphabetExtractor}`.
 
 # Keywords
 - `n::Union{Int,Nothing}`: If not `nothing`, `n` sequences will be sampled randomly from the recombined mutants.
@@ -28,7 +28,7 @@ end
 
 Recombination{T}(alphabet_extractor::T; n=nothing) where {T} = Recombination(alphabet_extractor, n)
 Recombination(alphabet_extractor::AbstractAlphabetExtractor; n=nothing) = Recombination(alphabet_extractor, n)
-Recombination(; n=nothing) = Recombination(AlphabetExctractor(); n)
+Recombination(; n=nothing) = Recombination(AlphabetExtractor(); n)
 
 function (m::Recombination)(parents::AbstractVector{Vector{Char}})
     @assert DESilico.same_length_sequences(parents)
