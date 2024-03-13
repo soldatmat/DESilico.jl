@@ -38,14 +38,13 @@ Recombination(; mutation_positions=nothing, n=nothing) = Recombination(AlphabetE
 function (m::Recombination)(parents::AbstractVector{Vector{Char}})
     @assert DESilico.same_length_sequences(parents)
     length(parents) == 0 && return Vector{Vector{Char}}([])
-    parent_residues = isnothing(m.mutation_positions) ? parents : map(p -> p[m.mutation_positions], parents)
-    alphabets = m.alphabet_extractor(parent_residues)
+    alphabets = isnothing(m.mutation_positions) ? m.alphabet_extractor(parents) : m.alphabet_extractor(parents, m.mutation_positions)
     mutants = _recombine_symbols(alphabets)
     if !isnothing(m.n)
         mutants = sample(mutants, m.n, replace=false)
     end
     if !isnothing(m.mutation_positions)
-       mutants = _build_mutants(parents[1], m.mutation_positions, mutants)
+        mutants = _build_mutants(parents[1], m.mutation_positions, mutants)
     end
     return mutants
 end

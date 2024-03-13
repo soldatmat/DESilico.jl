@@ -7,14 +7,14 @@ Constructs `AlphabetExtractor`.
 """
 struct AlphabetExtractor <: AbstractAlphabetExtractor end
 
-function (::AlphabetExtractor)(sequences::AbstractVector{Vector{Char}})
-    alphabets = Vector{Set{Char}}(undef, length(sequences[1]))
-    for position in 1:length(sequences[1])
+function (::AlphabetExtractor)(sequences::AbstractVector{Vector{Char}}, positions::AbstractVector{Int})
+    alphabets = Vector{Set{Char}}(undef, length(positions))
+    for (pos, position) in enumerate(positions)
         symbols = Vector{Char}(undef, length(sequences))
         for (p, parent) in enumerate(sequences)
             symbols[p] = parent[position]
         end
-        alphabets[position] = Set(symbols)
+        alphabets[pos] = Set(symbols)
     end
     return alphabets
 end
