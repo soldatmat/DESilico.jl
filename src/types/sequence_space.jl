@@ -116,3 +116,9 @@ function push_variants!(ss::SequenceSpace, variants::AbstractVector{Variant})
     update_variants!(ss, variants)
     update_top_variant!(ss, variants)
 end
+
+function reconstruct_progression(ss::SequenceSpace{Vector{Variant}})
+    progression = [ss.variants[1].fitness]
+    map(variant -> append!(progression, variant.fitness > progression[end] ? variant.fitness : progression[end]), ss.variants[2:end])
+    return progression
+end

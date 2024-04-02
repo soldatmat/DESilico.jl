@@ -211,4 +211,14 @@
         @test ss.variants == Set([Variant(['A'], 0), Variant(['B'], 1), Variant(['C'], 1.5), Variant(['D'], -1)])
         @test isequal(ss.top_variant, Variant(['C'], 1.5))
     end
+
+    @testset "reconstruct_progression" begin
+        ss = SequenceSpace{Vector{Variant}}([Variant(['A'], 0.0)])
+        DESilico.push_variants!(ss, [Variant(['B'], 0.0)])
+        DESilico.push_variants!(ss, [Variant(['C'], 1.0)])
+        DESilico.push_variants!(ss, [Variant(['D'], 0.5)])
+        DESilico.push_variants!(ss, [Variant(['E'], 1.0)])
+        DESilico.push_variants!(ss, [Variant(['F'], 1.5)])
+        @test DESilico.reconstruct_progression(ss) == [0.0, 0.0, 1.0, 1.0, 1.0, 1.5]
+    end
 end
