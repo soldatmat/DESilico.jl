@@ -1,0 +1,21 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: DESilico
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Matouš
+    family-names: Soldát
+repository-code: 'https://github.com/soldamatlab/DESilico.jl'
+abstract: >-
+  DESilico is a julia package for in silico directed
+  evolution (DE). It provides a general DE algortihm which
+  consists of three modular steps. Each step is defined by a
+  simple interface which allows for arbitrary combination of
+  existing modules as well as easy implementation of custom
+  modules.
+license: MIT
